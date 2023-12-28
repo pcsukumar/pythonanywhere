@@ -158,7 +158,7 @@
     }
     function getAllAjax(){
         $.ajax({
-            "url": "cod/employee",
+            "url": "cod/employees",
             "method":"GET",
             "data":"",
             "dataType": "JSON",
@@ -179,7 +179,7 @@
         //var car = {"reg":"12 D 1234","make":"Fiat","model":"Punto","price":3000}
         console.log(JSON.stringify(employee));
         $.ajax({
-            "url": "/employee",
+            "url": "/employees",
             "method":"POST",
             "data":JSON.stringify(employee),
             "dataType": "JSON",
@@ -200,7 +200,7 @@
         //var car = {"reg":"12 D 1234","price":8000}
         console.log(JSON.stringify(employee));
         $.ajax({
-            "url": "/employee/"+encodeURI(employee.id),
+            "url": "/employees/"+encodeURI(employee.id),
             "method":"PUT",
             "data":JSON.stringify(employee),
             "dataType": "JSON",
@@ -218,7 +218,7 @@
         
         //console.log(JSON.stringify('deleting '+id));
         $.ajax({
-            "url": "/employee/"+encodeURI(id),
+            "url": "/employees/"+encodeURI(id),
             "method":"DELETE",
             "data":"",
             "dataType": "JSON",
