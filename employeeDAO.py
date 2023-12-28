@@ -1,6 +1,6 @@
-import mysql.connector
-import dbconfig as cfg
-class BookDAO:
+import mysql.connector as connector
+import dbconfig_template as cfg
+class EmployeeDAO:
     connection=""
     cursor =''
     host=       ''
@@ -15,7 +15,7 @@ class BookDAO:
         self.database=   cfg.mysql['database']
 
     def getcursor(self): 
-        self.connection = mysql.connector.connect(
+        self.connection = connector.connect(
             host=       self.host,
             user=       self.user,
             password=   self.password,
@@ -30,7 +30,7 @@ class BookDAO:
          
     def create(self, values):
         cursor = self.getcursor()
-        sql="insert into book (title,author, price) values (%s,%s,%s)"
+        sql="insert into employee (name, position, age) values (%s,%s,%s)"
         cursor.execute(sql, values)
 
         self.connection.commit()
@@ -40,7 +40,7 @@ class BookDAO:
 
     def getAll(self):
         cursor = self.getcursor()
-        sql="select * from book"
+        sql="select * from employee"
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
@@ -54,7 +54,7 @@ class BookDAO:
 
     def findByID(self, id):
         cursor = self.getcursor()
-        sql="select * from book where id = %s"
+        sql="select * from employee where id = %s"
         values = (id,)
 
         cursor.execute(sql, values)
@@ -65,14 +65,14 @@ class BookDAO:
 
     def update(self, values):
         cursor = self.getcursor()
-        sql="update book set title= %s,author=%s, price=%s  where id = %s"
+        sql="update employee set name= %s, position=%s, age=%s  where id = %s"
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()
         
     def delete(self, id):
         cursor = self.getcursor()
-        sql="delete from book where id = %s"
+        sql="delete from employee where id = %s"
         values = (id,)
 
         cursor.execute(sql, values)
@@ -83,7 +83,7 @@ class BookDAO:
         print("delete done")
 
     def convertToDictionary(self, result):
-        colnames=['id','title','author', "price"]
+        colnames=['id','name','position', "age"]
         item = {}
         
         if result:
@@ -93,4 +93,4 @@ class BookDAO:
         
         return item
         
-bookDAO = BookDAO()
+employeeDAO = EmployeeDAO()
