@@ -12,8 +12,7 @@
             <table class="table table-striped" style="width: 95%;" id="employeeTable">
                 <tr>
                         <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Name</th>
                         <th>Position</th>
                         <th>Age</th>
                         <th>Update</th>
@@ -24,7 +23,7 @@
         </div>
 
         <div id='createUpdateForm' style="display: none">
-            <h2><span id="createLabel">Create an</span> <span id="updateLabel">Update</span> Employee</h2>
+            <h2><span id="createLabel">Create a</span> <span id="updateLabel">Update</span> Employee</h2>
             <input type="hidden" name="id" />
         
         
@@ -33,13 +32,8 @@
                   <div class="col-md-6">
                     <form>
                       <div class="form-group">
-                        <label for="fname">First Name</label>
-                        <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter first name">
-                      </div>
-
-                      <div class="form-group">
-                        <label for="lname">Last Name</label>
-                        <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter last name">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
                       </div>
                       
                       <div class="form-group">
@@ -105,8 +99,7 @@
 
         var employee = {}
        
-        employee.fname = form.querySelector('input[name="fname"]').value
-        employee.lname = form.querySelector('input[name="lname"]').value
+        employee.name = form.querySelector('input[name="name"]').value
         employee.position = form.querySelector('input[name="position"]').value
         employee.age = form.querySelector('input[name="age"]').value
         console.log(JSON.stringify(employee))
@@ -118,7 +111,7 @@
         var employee = getEmployeeFromForm();
         var rowElement = document.getElementById(employee.id);
         updateEmployeeAjax(employee);
-        setEmployeeInRow(rowElement, employee);
+        setEmployeeInRow(rowElement,employee);
        
         clearForm();
         showViewAll();
@@ -137,51 +130,45 @@
         var cell1 = rowElement.insertCell(0);
         cell1.innerHTML = employee.id
         var cell2 = rowElement.insertCell(1);
-        cell2.innerHTML = employee.fname
+        cell2.innerHTML = employee.name
         var cell3 = rowElement.insertCell(2);
-        cell3.innerHTML = employee.lname
+        cell3.innerHTML = employee.position
         var cell4 = rowElement.insertCell(3);
-        cell4.innerHTML = employee.position
+        cell4.innerHTML = employee.age
         var cell5 = rowElement.insertCell(4);
-        cell5.innerHTML = employee.age
+        cell5.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
         var cell6 = rowElement.insertCell(5);
-        cell6.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
-        var cell7 = rowElement.insertCell(6);
-        cell7.innerHTML = '<button onclick=doDelete(this)>Delete</button>'
+        cell6.innerHTML = '<button onclick=doDelete(this)>Delete</button>'
 
     }
 
     function clearForm(){
         var form = document.getElementById('createUpdateForm')
 
-        form.querySelector('input[name="fname"]').value=''
-        form.querySelector('input[name="lname"]').value=''
+        form.querySelector('input[name="name"]').value=''
         form.querySelector('input[name="position"]').value=''
         form.querySelector('input[name="age"]').value=''
     }
     function getEmployeeFromRow(rowElement){
         var car ={}
         employee.id  = rowElement.getAttribute('id')
-        employee.fname = rowElement.cells[1].firstChild.textContent
-        employee.lname = rowElement.cells[2].firstChild.textContent
-        employee.position = rowElement.cells[3].firstChild.textContent
-        employee.age = parseInt(rowElement.cells[4].firstChild.textContent,10)
+        employee.name = rowElement.cells[1].firstChild.textContent
+        employee.position = rowElement.cells[2].firstChild.textContent
+        employee.age = parseInt(rowElement.cells[3].firstChild.textContent,10)
         return employee
     }
     function setEmployeeInRow(rowElement, employee){
         rowElement.cells[0].firstChild.textContent= employee.id  
-        rowElement.cells[1].firstChild.textContent= employee.fname 
-        rowElement.cells[2].firstChild.textContent= employee.lname 
-        rowElement.cells[3].firstChild.textContent= employee.position
-        rowElement.cells[4].firstChild.textContent= employee.age
+        rowElement.cells[1].firstChild.textContent= employee.name 
+        rowElement.cells[2].firstChild.textContent= employee.position
+        rowElement.cells[3].firstChild.textContent= employee.age
     }
     function populateFormWithEmployee(employee){
         var form = document.getElementById('createUpdateForm')
         form.querySelector('input[name="id"]').disabled = true
 
         form.querySelector('input[name="id"]').value  = employee.id
-        form.querySelector('input[name="fname"]').value= employee.fname
-        form.querySelector('input[name="lname"]').value= employee.lname
+        form.querySelector('input[name="name"]').value= employee.name
         form.querySelector('input[name="position"]').value= employee.position
         form.querySelector('input[name="age"]').value= employee.age
         return employee
@@ -190,8 +177,7 @@
         var form = document.getElementById('createUpdateForm')
         var employee = {}
         employee.id = form.querySelector('input[name="id"]').value
-        employee.fname = form.querySelector('input[name="fname"]').value
-        employee.lname = form.querySelector('input[name="lname"]').value
+        employee.name = form.querySelector('input[name="name"]').value
         employee.position = form.querySelector('input[name="position"]').value
         employee.age = parseInt(form.querySelector('input[name="age"]').value,10)
         console.log(JSON.stringify(employee))

@@ -1,7 +1,5 @@
-#Connect to employee database
-
 import mysql.connector as connector
-import dbconfig_template as cfg
+import dbconfig as cfg
 class EmployeeDAO:
     connection=""
     cursor =''
@@ -32,7 +30,7 @@ class EmployeeDAO:
          
     def create(self, values):
         cursor = self.getcursor()
-        sql="insert into employee (fname, lname, position, age) values (%s, %s,%s,%s)"
+        sql="insert into employee (name, position, age) values (%s,%s,%s)"
         cursor.execute(sql, values)
 
         self.connection.commit()
@@ -67,7 +65,7 @@ class EmployeeDAO:
 
     def update(self, values):
         cursor = self.getcursor()
-        sql="update employee set fname= %s, lname= %s, position=%s, age=%s  where id = %s"
+        sql="update employee set name= %s, position=%s, age=%s  where id = %s"
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()
@@ -85,7 +83,7 @@ class EmployeeDAO:
         print("delete done")
 
     def convertToDictionary(self, result):
-        colnames=['id','fname', 'lname','position', "age"]
+        colnames=['id','name','position', "age"]
         item = {}
         
         if result:
