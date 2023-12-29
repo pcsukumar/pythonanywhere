@@ -19,9 +19,9 @@ def getAll():
 #curl "http://127.0.0.1:5000/books/2"
 @app.route('/employees/<int:id>')
 def findById(id):
-    foundBook = employeeDAO.findByID(id)
+    foundEmployee = employeeDAO.findByID(id)
 
-    return jsonify(foundBook)
+    return jsonify(foundEmployee)
 
 #curl  -i -H "Content-Type:application/json" -X POST -d "{\"title\":\"hello\",\"author\":\"someone\",\"price\":123}" http://127.0.0.1:5000/books
 @app.route('/employees', methods=['POST'])
@@ -31,11 +31,12 @@ def create():
         abort(400)
     # other checking 
     employee = {
-        "name": request.json['name'],
+        "fname": request.json['fname'],
+        "lname": request.json['lname'],
         "position": request.json['position'],
         "age": request.json['age'],
     }
-    values =(employee['name'],employee['position'],employee['age'])
+    values =(employee['fname'],employee['lname'], employee['position'],employee['age'])
     newId = employeeDAO.create(values)
     employee['id'] = newId
     return jsonify(employee)
@@ -53,13 +54,15 @@ def update(id):
     if 'age' in reqJson and type(reqJson['age']) is not int:
         abort(400)
 
-    if 'name' in reqJson:
-        foundEmployee['name'] = reqJson['name']
+    if 'fname' in reqJson:
+        foundEmployee['fname'] = reqJson['fname']
+    if 'lname' in reqJson:
+        foundEmployee['lname'] = reqJson['lname']
     if 'position' in reqJson:
         foundEmployee['position'] = reqJson['position']
     if 'age' in reqJson:
         foundEmployee['age'] = reqJson['age']
-    values = (foundEmployee['name'],foundEmployee['position'],foundEmployee['age'],foundEmployee['id'])
+    values = (foundEmployee['fname'], foundEmployee['lname'], foundEmployee['position'],foundEmployee['age'],foundEmployee['id'])
     employeeDAO.update(values)
     return jsonify(foundEmployee)
         
